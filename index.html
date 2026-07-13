@@ -471,18 +471,15 @@
     selectorEl.classList.add('visible');
   }
 
-  function endIntro(){
+ function endIntro(){
     if (introEl.classList.contains('leaving')) return;
     introEl.classList.add('leaving');
+    
     setTimeout(() => {
-      /* La página sigue tapada por el fondo del intro mientras se
-         desvanece, así que si las fotos aún no terminan de precargar
-         (conexiones lentas), esperamos aquí sin que se note nada raro. */
-      if (imagesReady){
-        revealSelector();
-      } else {
-        preload.then(revealSelector);
-      }
+      // Forzamos a que se muestre el selector inmediatamente.
+      // Si la imagen actual aún no termina de cargar, aparecerá en cuanto esté lista, 
+      // pero la página ya no se quedará congelada.
+      revealSelector();
     }, 700);
   }
 
